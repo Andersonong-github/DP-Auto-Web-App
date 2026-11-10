@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Check whether candidate static IPs are already in use (ARP probe + ping), read-only.
-CANDIDATES="${*:-10.10.7.230 10.10.7.231 10.10.7.232}"
+CANDIDATES="${*:-192.0.2.230 192.0.2.231 192.0.2.232}"
 
 echo "arping availability: $(command -v arping || echo 'not installed')"
 echo

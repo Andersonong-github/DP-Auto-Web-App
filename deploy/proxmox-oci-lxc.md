@@ -6,7 +6,7 @@
 |---|---|
 | Node | `Proxmoxmbic` / Proxmox VE **9.2.21** / Debian 13 / x86_64 |
 | Container | CT **113** `dp-auto-web`, unprivileged, 512MB / 1 core / 4GB disk (`sda_storage`) |
-| Address | **http://10.10.7.230:8080** (host-managed network, vmbr0, dedicated IP, no port mapping needed) |
+| Address | **http://192.0.2.230:8080** (host-managed network, vmbr0, dedicated IP, no port mapping needed) |
 | Key output | `Detected OCI archive` + `Auto-Enabling host-managed network for network device net0.` |
 | Verification | Recovers 4 seconds after reboot; real PBX login succeeded; all 4 read-only probes returned HTTP 200 |
 
@@ -32,7 +32,7 @@ The node needs: `skopeo` (`apt-get install -y skopeo`), outbound network access,
 tar -czf dp-auto-web-src.tar.gz -C <project dir> backend frontend Dockerfile requirements.txt
 ```
 
-Upload to the node: `scp dp-auto-web-src.tar.gz root@10.10.7.200:/root/`
+Upload to the node: `scp dp-auto-web-src.tar.gz root@192.0.2.10:/root/`
 (The repo includes `scripts/pve_ssh.py`, or you can use `--put` to upload over SSH.)
 
 ---
@@ -61,7 +61,7 @@ What the script does internally (every step was tested):
 ## 3. Create the container
 
 ```bash
-VMID=113 IP_CIDR=10.10.7.230/24 GATEWAY=10.10.7.1 STORAGE=sda_storage ./pve-deploy-oci.sh
+VMID=113 IP_CIDR=192.0.2.230/24 GATEWAY=192.0.2.1 STORAGE=sda_storage ./pve-deploy-oci.sh
 ```
 
 **Expected output** (the two key lines):
@@ -80,7 +80,7 @@ cores: 1
 entrypoint: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8080 --workers 1 --proxy-headers
 hostname: dp-auto-web
 memory: 512
-net0: name=eth0,bridge=vmbr0,gw=10.10.7.1,host-managed=1,hwaddr=...,ip=10.10.7.230/24,type=veth
+net0: name=eth0,bridge=vmbr0,gw=192.0.2.1,host-managed=1,hwaddr=...,ip=192.0.2.230/24,type=veth
 onboot: 1
 ostype: debian
 rootfs: sda_storage:113/vm-113-disk-0.raw,size=4G
@@ -112,7 +112,7 @@ Sessions live in process memory, so `--workers 1` is fixed; restarting the conta
 
 ## 5. Expose HTTPS with Cloudflare Tunnel
 
-The container is at `10.10.7.230:8080`; just point the tunnel ingress at it (TLS is terminated by Cloudflare):
+The container is at `192.0.2.230:8080`; just point the tunnel ingress at it (TLS is terminated by Cloudflare):
 
 ```yaml
 # cloudflared config snippet
@@ -120,7 +120,7 @@ tunnel: <your tunnel id>
 credentials-file: /root/.cloudflared/<tunnel id>.json
 ingress:
   - hostname: dp-auto.example.com
-    service: http://10.10.7.230:8080
+    service: http://192.0.2.230:8080
   - service: http_status:404
 ```
 
@@ -172,7 +172,7 @@ The node already has `local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst`:
 ```bash
 pct create 113 local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst \
   --hostname dp-auto-web --memory 512 --cores 1 --rootfs sda_storage:4 \
-  --net0 name=eth0,bridge=vmbr0,ip=10.10.7.230/24,gw=10.10.7.1 \
+  --net0 name=eth0,bridge=vmbr0,ip=192.0.2.230/24,gw=192.0.2.1 \
   --unprivileged 1 --onboot 1 --start 1
 
 pct exec 113 -- bash -c "apt-get update && apt-get install -y python3-venv"
@@ -191,7 +191,7 @@ Then add a systemd unit (`ExecStart=/opt/dp-auto-web/.venv/bin/python -m uvicorn
 ```bash
 pct create 113 local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst \
   --hostname dp-auto-web --memory 1024 --cores 2 --rootfs sda_storage:4 \
-  --net0 name=eth0,bridge=vmbr0,ip=10.10.7.230/24,gw=10.10.7.1 \
+  --net0 name=eth0,bridge=vmbr0,ip=192.0.2.230/24,gw=192.0.2.1 \
   --features nesting=1,keyctl=1 --unprivileged 1 --onboot 1 --start 1
 # install docker inside the container, then docker compose up -d (the repo has docker-compose.yml)
 ```

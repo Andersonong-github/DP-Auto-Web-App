@@ -255,11 +255,11 @@ export const htekView = {
     const ipsInput = h('textarea', {
       class: 'input-plain htek-targets',
       spellcheck: 'false',
-      placeholder: 'One IP per line, for example:\n10.10.7.81\n10.10.7.82\n10.10.7.83',
+      placeholder: 'One IP per line, for example:\n192.0.2.81\n192.0.2.82\n192.0.2.83',
     });
-    ipsInput.value = '10.10.7.81\n10.10.7.82\n10.10.7.83';
+    ipsInput.value = '192.0.2.81\n192.0.2.82\n192.0.2.83';
 
-    const rangeInput = textInput({ placeholder: 'Example: 10.10.7.1-254' });
+    const rangeInput = textInput({ placeholder: 'Example: 192.0.2.1-254' });
     const targetCount = h('span', { class: 'u-label__hint', text: '0 targets' });
 
     const serverInput = textInput({ placeholder: 'deltapath-cc.maxis.com.my' });
@@ -737,7 +737,7 @@ export const htekView = {
       if (actionBusy || running()) return;
       const count = parseTargetCount(ipsInput.value, rangeInput.value);
       if (!count) {
-        toast('warn', 'Enter at least one valid IPv4 address or a range such as 10.10.7.1-254.');
+        toast('warn', 'Enter at least one valid IPv4 address or a range such as 192.0.2.1-254.');
         ipsInput.focus();
         return;
       }
@@ -907,7 +907,7 @@ export const htekView = {
         h(
           'div',
           { class: 'u-field mt-16' },
-          h('label', { class: 'u-label' }, 'IP range', h('span', { class: 'u-label__hint', text: 'last octet, e.g. 10.10.7.1-254' })),
+          h('label', { class: 'u-label' }, 'IP range', h('span', { class: 'u-label__hint', text: 'last octet, e.g. 192.0.2.1-254' })),
           rangeInput,
         ),
         h(

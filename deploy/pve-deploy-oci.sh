@@ -15,8 +15,8 @@ set -uo pipefail
 # ---- Target container ----
 VMID=${VMID:-113}
 NAME=${NAME:-dp-auto-web}
-IP_CIDR=${IP_CIDR:-10.10.7.230/24}
-GATEWAY=${GATEWAY:-10.10.7.1}
+IP_CIDR=${IP_CIDR:-192.0.2.230/24}
+GATEWAY=${GATEWAY:-192.0.2.1}
 STORAGE=${STORAGE:-sda_storage}          # storage holding the container rootfs
 TEMPLATE_STORAGE=${TEMPLATE_STORAGE:-local}   # storage for the OCI template (must support vztmpl)
 MEMORY=${MEMORY:-512}

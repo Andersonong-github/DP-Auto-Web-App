@@ -1,7 +1,7 @@
 """Run the pipeline once against a local preview or a deployed instance to verify the engine + task modules + SSE.
 
     .venv\\Scripts\\python.exe scripts\\test_pipeline.py --base http://127.0.0.1:8098 --auto-login
-    .venv\\Scripts\\python.exe scripts\\test_pipeline.py --base http://10.10.7.230:8080 \
+    .venv\\Scripts\\python.exe scripts\\test_pipeline.py --base http://192.0.2.230:8080 \
         --pbx https://pbx.example.com --user 0107 --password '***' --dry
 
 `--auto-login` works only on the local preview server (dev_preview.py).

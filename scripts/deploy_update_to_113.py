@@ -66,7 +66,7 @@ def main():
         for i in range(20):
             time.sleep(2)
             try:
-                out = run_cmd("curl -s http://10.10.7.230:8080/api/health")
+                out = run_cmd("curl -s http://192.0.2.230:8080/api/health")
                 if '"status":"ok"' in out:
                     print("Service is UP and HEALTHY!")
                     break
@@ -76,7 +76,7 @@ def main():
             print("Warning: Did not get ok status within 40 seconds.")
 
         print("\nStep 8: Check /api/pbx/contexts/all route status code...")
-        code_out = run_cmd("curl -s -o /dev/null -w '%{http_code}' http://10.10.7.230:8080/api/pbx/contexts/all")
+        code_out = run_cmd("curl -s -o /dev/null -w '%{http_code}' http://192.0.2.230:8080/api/pbx/contexts/all")
         print(f"/api/pbx/contexts/all HTTP code: {code_out}")
 
         print("\nStep 9: Check frontend file content timestamp/size in CT 113...")

@@ -201,7 +201,7 @@ def normalise_mac(value: str) -> Optional[str]:
 
 
 def parse_ip_range(spec: str) -> List[str]:
-    """Expand ``10.10.7.1-254`` (and the full ``10.10.7.1-10.10.7.254`` form)."""
+    """Expand ``192.0.2.1-254`` (and the full ``192.0.2.1-192.0.2.254`` form)."""
     text = (spec or "").strip()
     if not text or "-" not in text:
         return []
@@ -697,7 +697,7 @@ class HtekManager:
         )
         if not targets:
             raise ValueError(
-                "No valid IPv4 target. Enter at least one address or an IP range such as 10.10.7.1-254."
+                "No valid IPv4 target. Enter at least one address or an IP range such as 192.0.2.1-254."
             )
 
         mode = str(params.get("mode") or "provision")

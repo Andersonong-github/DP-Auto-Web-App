@@ -23,9 +23,9 @@ echo "===== Network ====="
 ip -br a | grep -v ' lo ' | head -4
 ip r | head -4
 echo
-echo "===== Free IP scan (10.10.7.201-245) ====="
+echo "===== Free IP scan (192.0.2.201-245) ====="
 for i in $(seq 201 245); do
-  ( ping -c1 -W1 "10.10.7.$i" >/dev/null 2>&1 && echo "10.10.7.$i ALIVE" ) &
+  ( ping -c1 -W1 "192.0.2.$i" >/dev/null 2>&1 && echo "192.0.2.$i ALIVE" ) &
 done
 wait
 echo "Scan complete: anything not listed above is currently unanswered"

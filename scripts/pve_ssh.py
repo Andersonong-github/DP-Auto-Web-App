@@ -2,7 +2,7 @@
 
 Credentials are read from environment variables only, never written to disk:
 
-    $env:PVE_HOST='10.10.7.200'; $env:PVE_USER='root'; $env:PVE_PASS='***'
+    $env:PVE_HOST='192.0.2.10'; $env:PVE_USER='root'; $env:PVE_PASS='***'
 
 Usage:
 
