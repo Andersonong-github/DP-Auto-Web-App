@@ -1,0 +1,62 @@
+# ---------------------------------------------------------------- Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ------------------------------------------------------------ Virtual envs
+.venv/
+venv/
+ENV/
+env/
+.python-version
+
+# ------------------------------------------------------------ Runtime data
+# Local logs produced by launcher.py / uvicorn
+launcher.log
+backend-launch.log
+*.log
+
+# The audit log (JSONL) if DP_AUDIT_FILE points inside the repo
+audit*.jsonl
+data/
+
+# -------------------------------------------------------------- Secrets
+# Never commit real credentials. Use .env.example as the template.
+.env
+.env.local
+*.pem
+*.key
+config.json
+last_session.json
+
+# ------------------------------------------------------- Node / e2e tools
+node_modules/
+package-lock.json
+.artifacts/
+browser-screenshots/
+
+# ------------------------------------------------------------ OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~

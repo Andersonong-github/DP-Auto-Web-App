@@ -1,0 +1,14 @@
+# Runtime dependencies for the Deltapath Automation web app.
+# Verified locally against Python 3.14 / installed on python:3.12-slim in the image.
+fastapi>=0.115,<0.150
+uvicorn[standard]>=0.30,<0.60
+requests>=2.31,<3
+# Desktop launcher window (launcher.py). Needs the Microsoft Edge WebView2 Runtime.
+pywebview>=5,<7
+# Text to Speech page: Microsoft Edge neural voices (free, keyless).
+# miniaudio decodes the streamed MP3 so the page can also hand out a WAV, without ffmpeg.
+edge-tts>=7.0,<8
+miniaudio>=1.60,<2
+# Htek Provisioning page (Extras): drives the Chrome/Edge already installed on the
+# operator PC. No Playwright browser download is required (executable_path is used).
+playwright>=1.55,<2

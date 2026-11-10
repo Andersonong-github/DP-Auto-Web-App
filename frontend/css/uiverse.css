@@ -1,0 +1,705 @@
+/* ==========================================================================
+   uiverse.css — component layer
+   --------------------------------------------------------------------------
+   Components marked [uiverse] come from uiverse.io (MIT license) and were
+   rewritten as needed for this project:
+     · Form / Input / focus-within input ...... uiverse.io by JohnnyCSilva
+       https://uiverse.io/JohnnyCSilva/bad-cheetah-74
+     · Light beam decoration rays ............. uiverse.io by KhelVers
+       https://uiverse.io/KhelVers/honest-lionfish-67
+   Components marked [app] follow the same visual language and are written
+   for this project (button / switch /
+   loader / card / badge / status dot / toast / alert / skeleton).
+   ========================================================================== */
+
+:root {
+  --bg: #070b14;
+  --bg-soft: #0b1220;
+  --panel: rgba(17, 25, 42, 0.82);
+  --panel-solid: #111a2a;
+  --line: rgba(122, 162, 224, 0.16);
+  --line-strong: rgba(122, 162, 224, 0.32);
+  --text: #e9eefc;
+  --muted: #90a3c6;
+  --brand: #19d3ff;
+  --brand-2: #7a5cff;
+  --ok: #2ee6a8;
+  --warn: #ffc857;
+  --err: #ff5d73;
+  --radius-lg: 20px;
+  --radius: 12px;
+  --radius-sm: 10px;
+  --shadow-card: 0 24px 60px rgba(2, 8, 20, 0.55);
+  --shadow-brand: 0 12px 34px rgba(25, 211, 255, 0.22);
+  --font: "Inter", "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", "Cascadia Mono", Consolas, "SFMono-Regular", monospace;
+}
+
+html[data-theme="light"] {
+  --bg: #f2f5f9;
+  --bg-soft: #e8ecf4;
+  --panel: rgba(255, 255, 255, 0.92);
+  --panel-solid: #ffffff;
+  --line: rgba(26, 43, 76, 0.12);
+  --line-strong: rgba(26, 43, 76, 0.22);
+  --text: #111827;
+  --muted: #5e6f8a;
+  --brand: #0284c7;
+  --brand-2: #6366f1;
+  --ok: #059669;
+  --warn: #d97706;
+  --err: #dc2626;
+  --shadow-card: 0 16px 40px rgba(15, 30, 60, 0.08);
+  --shadow-brand: 0 8px 24px rgba(2, 132, 199, 0.16);
+}
+
+/* --------------------------------------------------------------------------
+   [uiverse] input group —— from JohnnyCSilva / bad-cheetah-74
+   -------------------------------------------------------------------------- */
+.u-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.u-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.u-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.u-inputForm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 12px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(9, 15, 27, 0.75);
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
+.u-inputForm:hover {
+  border-color: var(--line-strong);
+}
+
+.u-inputForm:focus-within {
+  border-color: var(--brand);
+  background: rgba(9, 17, 32, 0.95);
+  box-shadow: 0 0 0 4px rgba(25, 211, 255, 0.13);
+}
+
+.u-inputForm.is-invalid {
+  border-color: var(--err);
+  box-shadow: 0 0 0 4px rgba(255, 93, 115, 0.12);
+}
+
+.u-inputForm > svg,
+.u-inputForm > .u-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--muted);
+}
+
+.u-inputForm:focus-within > svg {
+  color: var(--brand);
+}
+
+.u-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 48px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.u-input:focus {
+  outline: none;
+}
+
+.u-input::placeholder {
+  color: rgba(144, 163, 198, 0.6);
+}
+
+.u-input:-webkit-autofill,
+.u-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px #0b1526 inset;
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* Protocol selector (http:// / https://) sits left of the address input */
+.u-proto {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(25, 211, 255, 0.07);
+  color: var(--brand);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.u-proto:hover {
+  background: rgba(25, 211, 255, 0.14);
+  border-color: rgba(25, 211, 255, 0.4);
+}
+
+.u-affix {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/* Action button inside the input (show/hide password) */
+.u-input-action {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+.u-input-action:hover {
+  color: var(--text);
+  background: rgba(122, 162, 224, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   [app] button
+   -------------------------------------------------------------------------- */
+.u-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(122, 162, 224, 0.08);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.16s ease, background 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease, color 0.18s ease;
+}
+
+.u-btn:hover:not(:disabled) {
+  background: rgba(122, 162, 224, 0.16);
+  border-color: var(--line-strong);
+}
+
+.u-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.u-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.u-btn--ghost {
+  background: transparent;
+}
+
+.u-btn--danger {
+  border-color: rgba(255, 93, 115, 0.35);
+  background: rgba(255, 93, 115, 0.1);
+  color: #ffd7dd;
+}
+
+.u-btn--danger:hover:not(:disabled) {
+  background: rgba(255, 93, 115, 0.2);
+}
+
+.u-btn.u-btn--sm {
+  height: 36px;
+  padding: 0 13px;
+  font-size: 13.5px;
+}
+
+.u-btn.u-btn--block {
+  width: 100%;
+}
+
+/* Primary button: sliding shine + hover lift (follows the uiverse button convention) */
+.u-btn--primary {
+  height: 52px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(120deg, var(--brand-2), #1f7dff 45%, var(--brand));
+  background-size: 180% 180%;
+  color: #041020;
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow-brand);
+  animation: u-gradient 8s ease infinite;
+}
+
+.u-btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(25, 211, 255, 0.32);
+}
+
+.u-btn--primary .u-btn__shine {
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+}
+
+.u-btn--primary:hover .u-btn__shine {
+  left: 120%;
+}
+
+@keyframes u-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* --------------------------------------------------------------------------
+   [app] switch (follows the uiverse switch convention)
+   -------------------------------------------------------------------------- */
+.u-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.u-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.u-switch__track {
+  position: relative;
+  flex: 0 0 auto;
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(122, 162, 224, 0.14);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.u-switch__track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #cfe0ff;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+}
+
+.u-switch input:checked + .u-switch__track {
+  background: linear-gradient(120deg, var(--brand-2), var(--brand));
+  border-color: transparent;
+}
+
+.u-switch input:checked + .u-switch__track::after {
+  transform: translateX(18px);
+  background: #041020;
+}
+
+.u-switch input:focus-visible + .u-switch__track {
+  box-shadow: 0 0 0 4px rgba(25, 211, 255, 0.18);
+}
+
+.u-switch:hover .u-switch__track {
+  border-color: var(--brand);
+}
+
+/* --------------------------------------------------------------------------
+   [app] loading indicator
+   -------------------------------------------------------------------------- */
+.u-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.u-loader--dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: u-bounce 1.1s ease-in-out infinite;
+}
+
+.u-loader--dots span:nth-child(2) { animation-delay: 0.15s; }
+.u-loader--dots span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes u-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
+  40% { transform: translateY(-5px); opacity: 1; }
+}
+
+.u-loader--ring {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(4, 16, 32, 0.25);
+  border-top-color: #041020;
+  animation: u-spin 0.75s linear infinite;
+}
+
+@keyframes u-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Skeleton */
+.u-skeleton {
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(122, 162, 224, 0.08), rgba(122, 162, 224, 0.2), rgba(122, 162, 224, 0.08));
+  background-size: 200% 100%;
+  animation: u-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes u-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* --------------------------------------------------------------------------
+   [app] card / badge / status dot / alert
+   -------------------------------------------------------------------------- */
+.u-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(14px);
+}
+
+.u-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.u-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.u-card__sub {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.u-card__body {
+  padding: 20px 22px;
+}
+
+.u-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(122, 162, 224, 0.1);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.u-badge--brand { border-color: rgba(25, 211, 255, 0.35); background: rgba(25, 211, 255, 0.12); color: #9ceaff; }
+.u-badge--ok { border-color: rgba(46, 230, 168, 0.35); background: rgba(46, 230, 168, 0.12); color: #93f4d4; }
+.u-badge--warn { border-color: rgba(255, 200, 87, 0.35); background: rgba(255, 200, 87, 0.12); color: #ffdf9e; }
+.u-badge--err { border-color: rgba(255, 93, 115, 0.35); background: rgba(255, 93, 115, 0.12); color: #ffb7c1; }
+
+/* Status dot: matches the desktop version's four states grey/yellow/green/red */
+.u-dot {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--muted);
+  box-shadow: 0 0 0 3px rgba(144, 163, 198, 0.14);
+}
+
+.u-dot--running { background: var(--warn); box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.16); animation: u-pulse 1.2s ease-in-out infinite; }
+.u-dot--success { background: var(--ok); box-shadow: 0 0 0 3px rgba(46, 230, 168, 0.16); }
+.u-dot--error { background: var(--err); box-shadow: 0 0 0 3px rgba(255, 93, 115, 0.16); }
+
+@keyframes u-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.u-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(122, 162, 224, 0.09);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.u-alert--err { border-color: rgba(255, 93, 115, 0.4); background: rgba(255, 93, 115, 0.1); color: #ffd2d8; }
+.u-alert--ok { border-color: rgba(46, 230, 168, 0.35); background: rgba(46, 230, 168, 0.1); color: #b7f7e2; }
+.u-alert--warn { border-color: rgba(255, 200, 87, 0.35); background: rgba(255, 200, 87, 0.1); color: #ffe6b8; }
+.u-alert--info { color: #cfe0ff; }
+
+.u-alert__raw {
+  margin-top: 8px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(3, 8, 18, 0.6);
+  color: #cbd7ee;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 132px;
+  overflow: auto;
+}
+
+/* --------------------------------------------------------------------------
+   [uiverse] light beam decoration —— from KhelVers / honest-lionfish-67
+   -------------------------------------------------------------------------- */
+.u-rays {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none;
+  animation: u-rays 3.4s ease-in-out infinite;
+}
+
+.u-rays svg {
+  width: min(320px, 74%);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(0, 224, 255, 0.35));
+}
+
+@keyframes u-rays {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   [app] Toast
+   -------------------------------------------------------------------------- */
+.u-toasts {
+  position: fixed;
+  z-index: 90;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(360px, calc(100vw - 36px));
+}
+
+.u-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius-sm);
+  /* Theme-aware surface: the toast used a hard-coded dark plate, so in light mode
+     the dark text sat on a dark background and became unreadable. */
+  background: var(--panel-solid);
+  color: var(--text);
+  box-shadow: var(--shadow-card);
+  font-size: 13.5px;
+  line-height: 1.5;
+  animation: u-toast-in 0.25s ease both;
+}
+
+.u-toast--ok { border-left-color: var(--ok); }
+.u-toast--err { border-left-color: var(--err); }
+.u-toast--warn { border-left-color: var(--warn); }
+.u-toast.is-leaving { animation: u-toast-out 0.2s ease both; }
+
+/* Explicit light-theme plate: never rely on the inherited dark surface (the original
+   hard-coded toast plate made the message unreadable in light mode). */
+html[data-theme="light"] .u-toast {
+  background: #ffffff;
+  color: #111827;
+  border-color: rgba(26, 43, 76, 0.14);
+  border-left-color: var(--brand);
+  box-shadow: 0 16px 40px rgba(15, 30, 60, 0.16);
+}
+
+html[data-theme="light"] .u-toast--ok { border-left-color: var(--ok); }
+html[data-theme="light"] .u-toast--err { border-left-color: var(--err); }
+html[data-theme="light"] .u-toast--warn { border-left-color: var(--warn); }
+
+html[data-theme="light"] .u-toast svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+@keyframes u-toast-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes u-toast-out {
+  to { opacity: 0; transform: translateX(18px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   [app] modal confirm dialog
+   -------------------------------------------------------------------------- */
+.u-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(3, 6, 13, 0.68);
+  backdrop-filter: blur(4px);
+  animation: u-fade 0.16s ease both;
+}
+
+.u-modal {
+  width: min(432px, 100%);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--panel-solid);
+  box-shadow: var(--shadow-card);
+  animation: u-pop 0.2s ease both;
+}
+
+.u-modal__title {
+  margin: 0 0 8px;
+  font-size: 16.5px;
+  font-weight: 800;
+}
+
+.u-modal__text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.62;
+}
+
+.u-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@keyframes u-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes u-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Zoom control */
+.zoomctl {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 36px;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(122, 162, 224, 0.08);
+}
+
+.zoomctl__btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.zoomctl__btn:hover {
+  background: rgba(122, 162, 224, 0.16);
+  color: var(--text);
+}
+
+.zoomctl__value {
+  min-width: 46px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  text-align: center;
+  cursor: pointer;
+}
